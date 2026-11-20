@@ -1,0 +1,74 @@
+erDiagram
+    CUSTOMERS ||--o{ SHIPMENTS : books
+    ROUTES ||--o{ SHIPMENTS : uses
+    VEHICLES ||--o{ SHIPMENTS : assigned_to
+    DRIVERS ||--o{ SHIPMENTS : assigned_to
+    HUBS ||--o{ ROUTES : origin
+    HUBS ||--o{ ROUTES : destination
+    SHIPMENTS ||--o{ DELIVERIES : attempts
+    SHIPMENTS ||--o{ SHIPMENT_STATUS_HISTORY : records
+    HUBS o|--o{ SHIPMENT_STATUS_HISTORY : scans_at
+
+    CUSTOMERS {
+      bigint customer_id PK
+      varchar customer_code UK
+      varchar full_name
+      varchar email UK
+      varchar city
+      varchar state
+    }
+    HUBS {
+      bigint hub_id PK
+      varchar hub_code UK
+      varchar hub_name
+      varchar city
+      varchar state
+      int daily_capacity
+    }
+    VEHICLES {
+      bigint vehicle_id PK
+      varchar registration_no UK
+      varchar vehicle_type
+      numeric capacity_kg
+    }
+    DRIVERS {
+      bigint driver_id PK
+      varchar driver_code UK
+      varchar full_name
+      varchar license_no UK
+    }
+    ROUTES {
+      bigint route_id PK
+      varchar route_code UK
+      bigint origin_hub_id FK
+      bigint destination_hub_id FK
+      numeric distance_km
+    }
+    SHIPMENTS {
+      bigint shipment_id PK
+      varchar tracking_number UK
+      bigint customer_id FK
+      bigint route_id FK
+      bigint assigned_vehicle_id FK
+      bigint assigned_driver_id FK
+      numeric weight_kg
+      numeric shipping_cost
+      timestamptz expected_delivery_at
+      timestamptz delivered_at
+      varchar status
+    }
+    DELIVERIES {
+      bigint delivery_id PK
+      bigint shipment_id FK
+      int attempt_no
+      varchar delivery_status
+      timestamptz attempted_at
+    }
+    SHIPMENT_STATUS_HISTORY {
+      bigint status_history_id PK
+      bigint shipment_id FK
+      bigint hub_id FK
+      varchar status
+      timestamptz event_at
+      varchar event_key UK
+    }

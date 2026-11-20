@@ -1,0 +1,38 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.DS_Store
+.vscode/
+.idea/
+*.log
+.coverage
+htmlcov/
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+
+# Environment and secrets
+.env*
+!.env.example
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Database backups and generated files
+*.dump
+*.backup
+*.bak
+*.sqlite
+*.db
