@@ -21,4 +21,4 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements-dev.txt -r backend/requirements.txt -e .
       - name: Run tests
-        run: pytest -q
+        run: python -B -m pytest -q -p no:cacheprovider
